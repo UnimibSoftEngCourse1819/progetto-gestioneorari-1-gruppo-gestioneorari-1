@@ -1,8 +1,8 @@
 package gestione.orari.entita;
 
 public class Proiettore {
-    int idProiettore, capienza;
-    String nomeAula, edificio;
+    private int idProiettore, capienza;
+    private String nomeAula, edificio;
     public Proiettore(int idProiettore, int capienza, String nomeAula,
             String edificio) {
         this.idProiettore = idProiettore;

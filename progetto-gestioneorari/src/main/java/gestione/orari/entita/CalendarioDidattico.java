@@ -3,9 +3,9 @@ package gestione.orari.entita;
 import java.time.LocalDateTime;
 
 public class CalendarioDidattico {
-    int idCalendarioDidattico, idSegretario;
-    String nomeAnno;
-    LocalDateTime inizioPeriodo, finePeriodo;
+   private int idCalendarioDidattico, idSegretario;
+   private String nomeAnno;
+   private LocalDateTime inizioPeriodo, finePeriodo;
 
     public CalendarioDidattico(int idCalendarioDidattico, int idSegretario,
             String nomeAnno, LocalDateTime inizioPeriodo,

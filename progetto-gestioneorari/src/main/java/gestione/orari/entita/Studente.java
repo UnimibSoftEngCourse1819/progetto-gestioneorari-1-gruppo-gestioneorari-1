@@ -1,8 +1,8 @@
 package gestione.orari.entita;
 
 public class Studente {
-    int matricola, telefono;
-    String nome, cognome, email;
+    private int matricola, telefono;
+    private String nome, cognome, email;
     public Studente(int matricola, int telefono, String nome, String cognome,
             String email) {
         this.matricola = matricola;

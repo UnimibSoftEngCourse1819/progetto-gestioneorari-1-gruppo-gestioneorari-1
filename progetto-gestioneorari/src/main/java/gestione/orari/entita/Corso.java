@@ -2,8 +2,8 @@ package gestione.orari.entita;
 
 public class Corso {
 
-    int idCorso, idCorsoDiLaurea, annoDiCorso;
-    String nome, descrizione;
+    private int idCorso, idCorsoDiLaurea, annoDiCorso;
+    private String nome, descrizione;
     public Corso(int idCorso, int idCorsoDiLaurea, int annoDiCorso, String nome,
             String descrizione) {
         this.idCorso = idCorso;
