@@ -1,9 +1,30 @@
 package gestione.orari.entita;
 
-public class Corso {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-    private int idCorso, idCorsoDiLaurea, annoDiCorso;
-    private String nome, descrizione;
+@Entity
+@Table(name = "Corso")
+public class Corso {
+    
+    @Id
+    @Column
+    private int idCorso;
+    
+    @Column
+    private int idCorsoDiLaurea;
+    
+    @Column
+    private int annoDiCorso;
+    
+    @Column
+    private String nome;
+    
+    @Column
+    private String descrizione;
+    
     public Corso(int idCorso, int idCorsoDiLaurea, int annoDiCorso, String nome,
             String descrizione) {
         this.idCorso = idCorso;

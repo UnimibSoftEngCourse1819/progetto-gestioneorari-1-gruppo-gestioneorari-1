@@ -1,8 +1,27 @@
 package gestione.orari.entita;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Proiettore")
 public class Proiettore {
-    private int idProiettore, capienza;
-    private String nomeAula, edificio;
+    
+    @Id
+    @Column
+    private int idProiettore;
+    
+    @Column
+    private int capienza;
+    
+    @Column
+    private String nomeAula;
+    
+    @Column
+    private String edificio;
+    
     public Proiettore(int idProiettore, int capienza, String nomeAula,
             String edificio) {
         this.idProiettore = idProiettore;

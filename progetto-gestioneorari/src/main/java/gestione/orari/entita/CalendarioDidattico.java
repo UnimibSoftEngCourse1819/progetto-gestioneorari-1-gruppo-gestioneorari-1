@@ -2,10 +2,31 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "CalendarioDidattico")
 public class CalendarioDidattico {
-   private int idCalendarioDidattico, idSegretario;
-   private String nomeAnno;
-   private LocalDateTime inizioPeriodo, finePeriodo;
+    
+    @Id
+    @Column(name = "idCalendarioDidattico")
+    private int idCalendarioDidattico;
+    
+    @Column(name = "idSegretario")
+    private int idSegretario;
+    
+    @Column(name = "nomeAnno")
+    private String nomeAnno;
+    
+    @Column(name = "inizioPeriodo")
+    private LocalDateTime inizioPeriodo;
+    
+    @Column(name = "finePeriodo")
+    private LocalDateTime finePeriodo;
 
     public CalendarioDidattico(int idCalendarioDidattico, int idSegretario,
             String nomeAnno, LocalDateTime inizioPeriodo,

@@ -1,7 +1,22 @@
 package gestione.orari.entita;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ProfessoreCorso")
 public class ProfessoreCorso {
-   private int idProfessoreCorso, idCorso, idProfessore;
+    @Id
+    @Column
+   private int idProfessoreCorso;
+    
+    @Column
+    private int idCorso;
+    
+    @Column
+    private int idProfessore;
 
     public ProfessoreCorso(int idProfessoreCorso, int idCorso,
             int idProfessore) {
