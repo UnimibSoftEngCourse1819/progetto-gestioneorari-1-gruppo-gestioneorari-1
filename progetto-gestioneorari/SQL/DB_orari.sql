@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `DB_orari`;
+﻿CREATE DATABASE  IF NOT EXISTS `DB_orari`;
 USE `DB_orari`;
 
 --
@@ -16,4 +16,4 @@ CREATE TABLE `Studente` (
   PRIMARY KEY (`matricola`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('pssword');
+
