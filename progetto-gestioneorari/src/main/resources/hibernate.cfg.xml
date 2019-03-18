@@ -24,6 +24,29 @@
 		<!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
  
+<!--  <mapping class="gestione.orari.entita.Aula" /> -->
+<!-- <mapping class="gestione.orari.entita.AulaEsame" /> -->
+<!-- <mapping class="gestione.orari.entita.AulaLezione" /> -->
+<!-- <mapping class="gestione.orari.entita.Esame" /> -->
+<!-- <mapping class="gestione.orari.entita.IscrizioneEsame" /> -->
+<!-- <mapping class="gestione.orari.entita.Lezione" /> -->
+<!-- <mapping class="gestione.orari.entita.LezioneCorso" /> -->
+<!-- <mapping class="gestione.orari.entita.OrarioDidattico" /> -->
+<!-- Avviso -->
+<!-- CorsoDiLaurea -->
+<!-- Corso -->
+<!-- Corso -->
+<!-- Persona -->
+<!-- PrenotazioneAula -->
+<!-- ProfessoreCorso -->
+<!-- TipologiaRisorsa -->
+<!-- TipologiaRisorsa -->
+ 
+ 
+ 
+ 
+ 
+ 
     </session-factory>
 
 </hibernate-configuration>
