@@ -1,5 +1,10 @@
 package gestione.orari.entita;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "Aula" )
 public class Aula {
 
 	private int idAula;
@@ -38,6 +43,14 @@ public class Aula {
 	public void setCapienza(int capienza) {
 		this.capienza = capienza;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("idAula: ").append(idAula);
+		sb.append("nomeAula: ").append(nomeAula);
+		sb.append("edificio: ").append(edificio);	
+		sb.append("capienza: ").append(capienza);
+		return sb.toString();
+	}
 	
 }

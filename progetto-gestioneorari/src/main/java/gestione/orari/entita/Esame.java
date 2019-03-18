@@ -2,6 +2,11 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "Esame" )
 public class Esame {
 
 	private int idEsame;
@@ -65,5 +70,16 @@ public class Esame {
 	public void setIdProfessore(int idProfessore) {
 		this.idProfessore = idProfessore;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("idEsame: ").append(idEsame);
+		sb.append("nomeEsame: ").append(nomeEsame);
+		sb.append("dataOraInizio: ").append(dataOraInizio);	
+		sb.append("dataOraFine: ").append(dataOraFine);
+		sb.append("numeroIscritti: ").append(numeroIscritti);
+		sb.append("idCorso: ").append(idCorso);
+		sb.append("idProfessore: ").append(idProfessore);
+		return sb.toString();
+	}
 }

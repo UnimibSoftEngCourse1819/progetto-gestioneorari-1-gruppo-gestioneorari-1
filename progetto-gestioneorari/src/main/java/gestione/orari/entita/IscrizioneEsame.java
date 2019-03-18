@@ -2,9 +2,19 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "IscrizioneEsame" )
 public class IscrizioneEsame {
-	
-	private int idIscrizioneEsame,idEsame, idStudente, idProfessore;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idIscrizioneEsame;
+	private int idEsame, idStudente, idProfessore;
 	private String note;
 	private LocalDateTime giornoOra;
 	private LocalDateTime scadenzaLimiteIscrizione;
@@ -62,6 +72,17 @@ public class IscrizioneEsame {
 	public void setScadenzaLimiteIscrizione(LocalDateTime scadenzaLimiteIscrizione) {
 		this.scadenzaLimiteIscrizione = scadenzaLimiteIscrizione;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("idIscrizioneEsame: ").append(idIscrizioneEsame);
+		sb.append("idEsame: ").append(idEsame);
+		sb.append("idStudente: ").append(idStudente);
+		sb.append("idProfessore: ").append(idProfessore);
+		sb.append("note: ").append(note);
+		sb.append("giornoOra: ").append(giornoOra);
+		sb.append("scadenzaLimiteIscrizione: ").append(scadenzaLimiteIscrizione);
+		return sb.toString();
+	}
 	
 }

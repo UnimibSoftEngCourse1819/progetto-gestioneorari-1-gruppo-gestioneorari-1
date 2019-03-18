@@ -1,8 +1,26 @@
 package gestione.orari.entita;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "Lezione" )
 public class Lezione {
-	int idLezione, idCorso;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	private int idLezione;
+	private int idCorso;
 	String argomento;
+	
+	public Lezione(int idLezione, int idCorso, String argomento) {
+		setIdLezione(idLezione);
+		setIdCorso(idCorso);
+		setArgomento(argomento);
+	}
+	
 	public int getIdLezione() {
 		return idLezione;
 	}
@@ -21,6 +39,13 @@ public class Lezione {
 	public void setArgomento(String argomento) {
 		this.argomento = argomento;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("idLezione: ").append(idLezione);
+		sb.append("idCorso: ").append(idCorso);	
+		sb.append("argomento: ").append(argomento);
+		return sb.toString();
+	}
 	
 }
