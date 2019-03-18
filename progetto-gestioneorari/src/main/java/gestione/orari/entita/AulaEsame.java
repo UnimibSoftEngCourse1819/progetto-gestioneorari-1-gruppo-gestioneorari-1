@@ -1,9 +1,15 @@
 package gestione.orari.entita;
 
 public class AulaEsame {
-	int idAula;
-	int idEsame;
-	int idAulaEsame;
+	private int idAula;
+	private int idEsame;
+	private int idAulaEsame;
+	
+	public AulaEsame(int idAula, int idEsame, int idAulaEsame) {
+		setIdAula(idAula);
+		setIdEsame(idEsame);
+		setIdAulaEsame(idAulaEsame);
+	}
 	
 	public int getIdAula() {
 		return idAula;

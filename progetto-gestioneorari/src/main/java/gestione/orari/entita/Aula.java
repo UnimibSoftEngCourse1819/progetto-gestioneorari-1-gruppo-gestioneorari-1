@@ -2,10 +2,17 @@ package gestione.orari.entita;
 
 public class Aula {
 
-	int idAula;
-	String nomeAula;
-	String edificio;
-	int capienza;
+	private int idAula;
+	private String nomeAula;
+	private String edificio;
+	private int capienza;
+	
+	public Aula(int idAula, String nomeAula, String edificio, int capienza){
+		setIdAula(idAula);
+		setNomeAula(nomeAula);
+		setEdificio(edificio);
+		setCapienza(capienza);
+	}
 	
 	public int getIdAula() {
 		return idAula;
