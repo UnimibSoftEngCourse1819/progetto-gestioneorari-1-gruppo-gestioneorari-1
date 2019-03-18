@@ -32,15 +32,14 @@
 <!-- <mapping class="gestione.orari.entita.Lezione" /> -->
 <!-- <mapping class="gestione.orari.entita.LezioneCorso" /> -->
 <!-- <mapping class="gestione.orari.entita.OrarioDidattico" /> -->
-<!-- Avviso -->
-<!-- CorsoDiLaurea -->
-<!-- Corso -->
-<!-- Corso -->
-<!-- Persona -->
-<!-- PrenotazioneAula -->
-<!-- ProfessoreCorso -->
-<!-- TipologiaRisorsa -->
-<!-- TipologiaRisorsa -->
+<!--<mapping class="gestione.orari.entita.Avviso" />  -->
+<!--<mapping class="gestione.orari.entita.CorsoDiLaurea" /> CorsoDiLaurea -->
+<!-- <mapping class="gestione.orari.entita.Corso" />Corso -->
+<!-- <mapping class="gestione.orari.entita.Persona" />Persona -->
+<!-- <mapping class="gestione.orari.entita.PrenotazioneAula" />PrenotazioneAula -->
+<!-- <mapping class="gestione.orari.entita.ProfessoreCorso" />ProfessoreCorso -->
+<!-- <mapping class="gestione.orari.entita.TipologiaRisorsa" />TipologiaRisorsa -->
+
  
  
  
