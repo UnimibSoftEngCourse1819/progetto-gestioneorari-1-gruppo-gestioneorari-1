@@ -4,10 +4,20 @@ import java.time.LocalDateTime;
 
 public class IscrizioneEsame {
 	
-	int idIscrizioneEsame,idEsame, idStudente, idProfessore;
-	String note;
-	LocalDateTime giornoOra;
-	LocalDateTime scadenzaLimiteIscrizione;
+	private int idIscrizioneEsame,idEsame, idStudente, idProfessore;
+	private String note;
+	private LocalDateTime giornoOra;
+	private LocalDateTime scadenzaLimiteIscrizione;
+	
+	public IscrizioneEsame(int idIscrizioneEsame,int idEsame, int idProfessore, LocalDateTime giornoOra, LocalDateTime scadenzaLimiteIscrizione, String note, int idStudente) {
+		setIdIscrizioneEsame(idIscrizioneEsame);
+		setIdEsame(idEsame);
+		setIdStudente(idStudente);
+		setIdProfessore(idProfessore);
+		setNote(note);
+		setGiornoOra(giornoOra);
+		setScadenzaLimiteIscrizione(scadenzaLimiteIscrizione);
+	}
 	
 	
 	public int getIdIscrizioneEsame() {
