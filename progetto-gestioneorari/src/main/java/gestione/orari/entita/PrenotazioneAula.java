@@ -2,6 +2,11 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "PrenotazioneAula" )
 public class PrenotazioneAula {
  
 	private int idPrenotazioneAula, idAula,idProfessore;
