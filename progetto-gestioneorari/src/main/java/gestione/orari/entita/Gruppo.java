@@ -1,7 +1,15 @@
 package gestione.orari.entita;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
+@Entity
+@Table( name = "Gruppo" )
 public class Gruppo {
 	
+	
+
 	private int idRuolo;
 	private String descrizione;
 	
