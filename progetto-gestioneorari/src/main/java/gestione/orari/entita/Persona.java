@@ -1,5 +1,10 @@
 package gestione.orari.entita;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "Persona" )
 public class Persona 
 {
 	private int idPersona,idGruppo;
