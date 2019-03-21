@@ -27,7 +27,7 @@ public class OrarioDidatticoController {
      */
     public void createSchedule(int idOrarioDidattico,
             LocalDateTime giornoOraInizio, LocalDateTime giornoOraFine,
-            int idLezione) throws LocalDateTimeException {
+            int idLezione) {
 
         try {
 
