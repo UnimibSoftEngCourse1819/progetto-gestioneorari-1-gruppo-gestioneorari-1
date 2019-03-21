@@ -2,7 +2,6 @@ package gestione.orari.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
