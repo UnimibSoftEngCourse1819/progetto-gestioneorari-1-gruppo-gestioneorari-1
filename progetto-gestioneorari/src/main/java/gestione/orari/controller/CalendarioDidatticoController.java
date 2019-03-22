@@ -11,198 +11,158 @@ import gestione.orari.entita.CalendarioDidattico;
 
 public class CalendarioDidatticoController {
 
-    private SessionFactory startSession() {
+	private SessionFactory startSession() {
 
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(CalendarioDidattico.class)
-                .buildSessionFactory();
-        return factory;
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(CalendarioDidattico.class).buildSessionFactory();
+		return factory;
 
-    }
-    
-    /**
-     * creates and insert a new CalendarioDidattico in the DB, checks that LocalDateTime is
-     * appropriate, launch LocalDateTimeException otherwise
-     */
-    public void createCalendar(int idCalendarioDidattico, int idSegretario,
-            String nomeAnno, LocalDateTime inizioPeriodo,
-            LocalDateTime finePeriodo) throws LocalDateTimeException {
+	}
 
-        try {
+	/**
+	 * creates and insert a new CalendarioDidattico in the DB, checks that
+	 * LocalDateTime is appropriate, launch LocalDateTimeException otherwise
+	 */
+	public void createCalendar(int idCalendarioDidattico, String nomeAnno, LocalDateTime inizioPeriodo,
+			LocalDateTime finePeriodo) {
 
-            if ((LocalDateTime.now().isAfter(inizioPeriodo))
-                    || (inizioPeriodo.isAfter(finePeriodo)))
-                throw new LocalDateTimeException(
-                        "Inizio periodo antecedente alla data attuale o successivo alla data di fine");
+		try {
 
-        } catch (LocalDateTimeException e) {
-            System.out.println(e.getMessage());
-        }
+			if ((LocalDateTime.now().isAfter(inizioPeriodo)) || (inizioPeriodo.isAfter(finePeriodo)))
+				throw new LocalDateTimeException(
+						"Inizio periodo antecedente alla data attuale o successivo alla data di fine");
 
-        SessionFactory factory = startSession();
+		} catch (LocalDateTimeException e) {
+			System.out.println(e.getMessage());
+		}
 
-        Session session = factory.getCurrentSession();
+		SessionFactory factory = startSession();
 
-        try {
-            CalendarioDidattico tempCalendar = new CalendarioDidattico(
-                    idCalendarioDidattico, idSegretario, nomeAnno,
-                    inizioPeriodo, finePeriodo);
+		Session session = factory.getCurrentSession();
 
-            session.beginTransaction();
+		try {
+			CalendarioDidattico tempCalendar = new CalendarioDidattico(idCalendarioDidattico, nomeAnno, inizioPeriodo,
+					finePeriodo);
 
-            session.save(tempCalendar);
+			session.beginTransaction();
 
-            session.getTransaction().commit();
+			session.save(tempCalendar);
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** get CalendarioDidattico by ID */
-    public CalendarioDidattico getCalendarByID(int idCalendarioDidattico) {
+			session.getTransaction().commit();
 
-        SessionFactory factory = startSession();
+		} finally {
+			factory.close();
+		}
+	}
 
-        Session session = factory.getCurrentSession();
+	/** get CalendarioDidattico by ID */
+	public CalendarioDidattico getCalendarByID(int idCalendarioDidattico) {
 
-        try {
-            session.beginTransaction();
+		SessionFactory factory = startSession();
 
-            CalendarioDidattico tempCalendar = session
-                    .get(CalendarioDidattico.class, idCalendarioDidattico);
+		Session session = factory.getCurrentSession();
 
-            session.getTransaction().commit();
+		try {
+			session.beginTransaction();
 
-            return tempCalendar;
+			CalendarioDidattico tempCalendar = session.get(CalendarioDidattico.class, idCalendarioDidattico);
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** get all occurrences of the table CalendarioDisattico*/
-    public List getAllCalendar() {
+			session.getTransaction().commit();
 
-        SessionFactory factory = startSession();
+			return tempCalendar;
 
-        Session session = factory.getCurrentSession();
+		} finally {
+			factory.close();
+		}
+	}
 
-        List<CalendarioDidattico> list;
-        try {
-            list = session.createQuery("from CalendarioDidattico")
-                    .getResultList();
-        } finally {
-            factory.close();
-        }
-        return list;
-    }
-    
-    /** update nomeAnno */
-    public void updateCalendarName(int idCalendarioDidattico, String nomeAnno) {
+	/** get all occurrences of the table CalendarioDisattico */
+	public List getAllCalendar() {
 
-        SessionFactory factory = startSession();
+		SessionFactory factory = startSession();
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+		Session session = factory.getCurrentSession();
 
-            CalendarioDidattico tempCalendar = session
-                    .get(CalendarioDidattico.class, idCalendarioDidattico);
+		List<CalendarioDidattico> list;
+		try {
+			session.beginTransaction();
 
-            tempCalendar.setNomeAnno(nomeAnno);
+			list = session.createQuery("from CalendarioDidattico").getResultList();
+		} finally {
+			factory.close();
+		}
+		return list;
+	}
 
-            session.getTransaction().commit();
+	/** update nomeAnno */
+	public void updateCalendarName(int idCalendarioDidattico, String nomeAnno) {
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** update inizioPeriodo, check that LocalDateTime is
-     * appropriate, launch LocalDateTimeException otherwise
-     */
-    public void updateCalendarStart(int idCalendarioDidattico,
-            LocalDateTime inizioPeriodo) throws LocalDateTimeException {
+		SessionFactory factory = startSession();
 
-        SessionFactory factory = startSession();
+		Session session = factory.getCurrentSession();
+		try {
+			session.beginTransaction();
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+			CalendarioDidattico tempCalendar = session.get(CalendarioDidattico.class, idCalendarioDidattico);
 
-            CalendarioDidattico tempCalendar = session
-                    .get(CalendarioDidattico.class, idCalendarioDidattico);
+			tempCalendar.setNomeAnno(nomeAnno);
 
-            if ((LocalDateTime.now().isAfter(inizioPeriodo))
-                    || (inizioPeriodo.isAfter(tempCalendar.getFinePeriodo())))
-                throw new LocalDateTimeException(
-                        "Inizio periodo antecedente alla data attuale o successivo alla data di fine");
+			session.getTransaction().commit();
 
-            tempCalendar.setInizioPeriodo(inizioPeriodo);
+		} finally {
+			factory.close();
+		}
+	}
 
-            session.getTransaction().commit();
+	/**
+	 * update giornoOraInizio && giornoOraFine, check that LocalDateTime is
+	 * appropriate, launch LocalDateTimeException otherwise
+	 */
+	public void updateCalendar(int idCalendarioDidattico, LocalDateTime inizioPeriodo, LocalDateTime finePeriodo) {
 
-        } catch (LocalDateTimeException e) {
-            System.out.println(e.getMessage());
+		SessionFactory factory = startSession();
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** update finePeriodo, check that LocalDateTime is
-     * appropriate, launch LocalDateTimeException otherwise
-     */
-    public void updateCalendarEnd(int idCalendarioDidattico,
-            LocalDateTime finePeriodo) throws LocalDateTimeException {
+		Session session = factory.getCurrentSession();
+		try {
+			session.beginTransaction();
 
-        SessionFactory factory = startSession();
+			CalendarioDidattico tempCalendar = session.get(CalendarioDidattico.class, idCalendarioDidattico);
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+			if ((LocalDateTime.now().isAfter(inizioPeriodo)) || (LocalDateTime.now().isAfter(finePeriodo))
+					|| (inizioPeriodo.isAfter(finePeriodo)))
+				throw new LocalDateTimeException("Controlla le DATE!");
 
-            CalendarioDidattico tempCalendar = session
-                    .get(CalendarioDidattico.class, idCalendarioDidattico);
+			tempCalendar.setInizioPeriodo(inizioPeriodo);
+			tempCalendar.setFinePeriodo(finePeriodo);
 
-            if ((LocalDateTime.now().isAfter(finePeriodo))
-                    || (tempCalendar.getInizioPeriodo().isAfter(finePeriodo)))
-                throw new LocalDateTimeException(
-                        "Fine periodo antecedente alla data attuale o successivo alla data di inizio");
+			session.getTransaction().commit();
 
-            tempCalendar.setFinePeriodo(finePeriodo);
+		} catch (LocalDateTimeException e) {
+			System.out.println(e.getMessage());
 
-            session.getTransaction().commit();
+		} finally {
+			factory.close();
+		}
+	}
 
-        } catch (LocalDateTimeException e) {
-            System.out.println(e.getMessage());
+	/** delete an CalendarioDidattico with a specific ID */
+	public void DeleteCalendar(int idCalendarioDidattico) {
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /**delete an CalendarioDidattico with a specific ID */
-    public void DeleteCalendar(int idCalendarioDidattico) {
+		SessionFactory factory = startSession();
 
-        SessionFactory factory = startSession();
+		Session session = factory.getCurrentSession();
+		try {
+			session.beginTransaction();
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+			CalendarioDidattico tempCalendar = session.get(CalendarioDidattico.class, idCalendarioDidattico);
 
-            CalendarioDidattico tempCalendar = session
-                    .get(CalendarioDidattico.class, idCalendarioDidattico);
+			session.delete(tempCalendar);
 
-            session.delete(tempCalendar);
+			session.getTransaction().commit();
 
-            session.getTransaction().commit();
-
-        } finally {
-            factory.close();
-        }
-    }
+		} finally {
+			factory.close();
+		}
+	}
 
 }

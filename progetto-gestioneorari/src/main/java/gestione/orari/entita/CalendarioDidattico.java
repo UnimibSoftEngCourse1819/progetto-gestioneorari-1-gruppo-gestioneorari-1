@@ -16,9 +16,6 @@ public class CalendarioDidattico {
     @Column(name = "idCalendarioDidattico")
     private int idCalendarioDidattico;
     
-    @Column(name = "idSegretario")
-    private int idSegretario;
-    
     @Column(name = "nomeAnno")
     private String nomeAnno;
     
@@ -28,11 +25,12 @@ public class CalendarioDidattico {
     @Column(name = "finePeriodo")
     private LocalDateTime finePeriodo;
 
-    public CalendarioDidattico(int idCalendarioDidattico, int idSegretario,
+    public CalendarioDidattico() {};
+    
+    public CalendarioDidattico(int idCalendarioDidattico,
             String nomeAnno, LocalDateTime inizioPeriodo,
             LocalDateTime finePeriodo) {
         this.idCalendarioDidattico = idCalendarioDidattico;
-        this.idSegretario = idSegretario;
         this.nomeAnno = nomeAnno;
         this.inizioPeriodo = inizioPeriodo;
         this.finePeriodo = finePeriodo;
@@ -44,14 +42,6 @@ public class CalendarioDidattico {
 
     public void setIdCalendarioDidattico(int idCalendarioDidattico) {
         this.idCalendarioDidattico = idCalendarioDidattico;
-    }
-
-    public int getIdSegretario() {
-        return idSegretario;
-    }
-
-    public void setIdSegretario(int idSegretario) {
-        this.idSegretario = idSegretario;
     }
 
     public String getNomeAnno() {

@@ -11,197 +11,183 @@ import gestione.orari.entita.OrarioDidattico;
 
 public class OrarioDidatticoController {
 
-    // just to avoid code duplicates
-    private SessionFactory startSession() {
+	// just to avoid code duplicates
+	private SessionFactory startSession() {
 
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(OrarioDidattico.class).buildSessionFactory();
-        return factory;
-    }
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(OrarioDidattico.class).buildSessionFactory();
+		return factory;
+	}
 
-    /**
-     * creates and insert a new OrarioDidattico in the DB, checks that LocalDateTime is
-     * appropriate, launch LocalDateTimeException otherwise
-     */
-    public void createSchedule(int idOrarioDidattico,
-            LocalDateTime giornoOraInizio, LocalDateTime giornoOraFine,
-            int idLezione) {
+	/**
+	 * creates and insert a new OrarioDidattico in the DB, checks that LocalDateTime
+	 * is appropriate, launch LocalDateTimeException otherwise
+	 */
+	public void createSchedule(int idOrarioDidattico, LocalDateTime giornoOraInizio, LocalDateTime giornoOraFine,
+			int idLezione) {
 
-        try {
+		try {
 
-            if ((LocalDateTime.now().isAfter(giornoOraInizio))
-                    || (giornoOraInizio.isAfter(giornoOraFine)))
-                throw new LocalDateTimeException("Controllare i giorni");
+			if ((LocalDateTime.now().isAfter(giornoOraInizio)) || (giornoOraInizio.isAfter(giornoOraFine)))
+				throw new LocalDateTimeException("Controllare i giorni");
 
-        } catch (LocalDateTimeException e) {
-            System.out.println(e.getMessage());
-        }
+		} catch (LocalDateTimeException e) {
+			System.out.println(e.getMessage());
+		}
 
-        SessionFactory factory = startSession();
+		SessionFactory factory = startSession();
 
-        Session session = factory.getCurrentSession();
+		Session session = factory.getCurrentSession();
 
-        try {
+		try {
 
-            OrarioDidattico tempSchedule = new OrarioDidattico(
-                    idOrarioDidattico, giornoOraInizio, giornoOraFine,
-                    idLezione);
+			OrarioDidattico tempSchedule = new OrarioDidattico(idOrarioDidattico, giornoOraInizio, giornoOraFine,
+					idLezione);
 
-            session.beginTransaction();
+			session.beginTransaction();
 
-            session.save(tempSchedule);
+			session.save(tempSchedule);
 
-            session.getTransaction().commit();
+			session.getTransaction().commit();
 
-        } finally {
-            factory.close();
-        }
-    }
+		} finally {
+			factory.close();
+		}
+	}
 
-    /** get OrarioDidattico by ID */
-    public OrarioDidattico getScheduleByID(int idOrarioDidattico) {
+	/** get OrarioDidattico by ID */
+	public OrarioDidattico getScheduleByID(int idOrarioDidattico) {
 
-        SessionFactory factory = startSession();
+		SessionFactory factory = startSession();
 
-        Session session = factory.getCurrentSession();
+		Session session = factory.getCurrentSession();
 
-        try {
-            
-            session.beginTransaction();
+		try {
 
-            OrarioDidattico tempSchedule = session.get(OrarioDidattico.class,
-                    idOrarioDidattico);
+			session.beginTransaction();
 
-            session.getTransaction().commit();
+			OrarioDidattico tempSchedule = session.get(OrarioDidattico.class, idOrarioDidattico);
 
-            return tempSchedule;
+			session.getTransaction().commit();
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** get all occurrences of the table OrarioDisattico*/
-    public List getAllSchedule() {
+			return tempSchedule;
 
-        SessionFactory factory = startSession();
+		} finally {
+			factory.close();
+		}
+	}
 
-        Session session = factory.getCurrentSession();
+	/** get all occurrences of the table OrarioDisattico */
+	public List getAllSchedule() {
 
-        List<OrarioDidattico> list;
-        try {
-            list = session.createQuery("from OrarioDidattico").getResultList();
-        } finally {
-            factory.close();
-        }
-        return list;
-    }
-    
-    /** update giornoOraInizio, check that LocalDateTime is
-     * appropriate, launch LocalDateTimeException otherwise
-     */
-    public void updateScheduleStart(int idOrarioDidattico,
-            LocalDateTime giornoOraInizio) throws LocalDateTimeException {
+		SessionFactory factory = startSession();
 
-        SessionFactory factory = startSession();
+		Session session = factory.getCurrentSession();
 
-        Session session = factory.getCurrentSession();
+		List<OrarioDidattico> list;
+		try {
+			session.beginTransaction();
 
-        try {
-            session.beginTransaction();
+			list = session.createQuery("from OrarioDidattico").getResultList();
 
-            OrarioDidattico tempSchedule = session.get(OrarioDidattico.class,
-                    idOrarioDidattico);
+		} finally {
+			factory.close();
+		}
+		return list;
+	}
 
-            if ((LocalDateTime.now().isAfter(giornoOraInizio))
-                    || (giornoOraInizio
-                            .isAfter(tempSchedule.getGiornoOraFine())))
-                throw new LocalDateTimeException(
-                        "La data inserita è precedente alla data corrente o successiva alla data di fine");
+	/**
+	 * update giornoOraInizio && giornoOraFine, check that LocalDateTime is
+	 * appropriate, launch LocalDateTimeException otherwise
+	 */
+	public void updateSchedule(int idOrarioDidattico, LocalDateTime giornoOraInizio, LocalDateTime giornoOraFine) {
 
-            tempSchedule.setGiornoOraInizio(giornoOraInizio);
+		SessionFactory factory = startSession();
 
-            session.getTransaction().commit();
+		Session session = factory.getCurrentSession();
 
-        } catch (LocalDateTimeException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** update giornoOraFine, check that LocalDateTime is
-     * appropriate, launch LocalDateTimeException otherwise
-     */
-    public void updateScheduleEnd(int idOrarioDidattico,
-            LocalDateTime giornoOraFine) throws LocalDateTimeException {
+		try {
+			session.beginTransaction();
 
-        SessionFactory factory = startSession();
+			OrarioDidattico tempSchedule = session.get(OrarioDidattico.class, idOrarioDidattico);
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+			if ((LocalDateTime.now().isAfter(giornoOraInizio)) || LocalDateTime.now().isAfter(giornoOraFine)
+					|| (giornoOraInizio.isAfter(giornoOraFine)))
+				throw new LocalDateTimeException("Controlla le date");
 
-            OrarioDidattico tempSchedule = session.get(OrarioDidattico.class,
-                    idOrarioDidattico);
+			tempSchedule.setGiornoOraInizio(giornoOraInizio);
+			tempSchedule.setGiornoOraFine(giornoOraFine);
 
-            if ((LocalDateTime.now().isAfter(giornoOraFine)) || (tempSchedule
-                    .getGiornoOraInizio().isAfter(giornoOraFine)))
-                throw new LocalDateTimeException(
-                        "La data inserita è precedente alla data corrente o alla data di inizio");
+			session.getTransaction().commit();
 
-            tempSchedule.setGiornoOraFine(giornoOraFine);
+		} catch (LocalDateTimeException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			factory.close();
+		}
+	}
 
-            session.getTransaction().commit();
+	/** update idLezione */
+	public void updateLessonID(int idOrarioDidattico, int idLezione) {
 
-        } catch (LocalDateTimeException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /** update idLezione */
-    public void updateLessonID(int idOrarioDidattico, int idLezione) {
+		SessionFactory factory = startSession();
 
-        SessionFactory factory = startSession();
+		Session session = factory.getCurrentSession();
+		try {
+			session.beginTransaction();
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+			OrarioDidattico tempSchedule = session.get(OrarioDidattico.class, idOrarioDidattico);
 
-            OrarioDidattico tempSchedule = session.get(OrarioDidattico.class,
-                    idOrarioDidattico);
+			tempSchedule.setIdLezione(idLezione);
 
-            tempSchedule.setIdLezione(idLezione);
+			session.getTransaction().commit();
 
-            session.getTransaction().commit();
+		} finally {
+			factory.close();
+		}
+	}
 
-        } finally {
-            factory.close();
-        }
-    }
-    
-    /**delete an OrarioDidattico with a specific ID */
-    public void DeleteSchedule(int idOrarioDidattico) {
+	/** delete an OrarioDidattico with a specific ID */
+	public void DeleteSchedule(int idOrarioDidattico) {
 
-        SessionFactory factory = startSession();
+		SessionFactory factory = startSession();
 
-        Session session = factory.getCurrentSession();
-        try {
-            session.beginTransaction();
+		Session session = factory.getCurrentSession();
+		try {
+			session.beginTransaction();
 
-            OrarioDidattico tempSchedule = session.get(OrarioDidattico.class,
-                    idOrarioDidattico);
+			OrarioDidattico tempSchedule = session.get(OrarioDidattico.class, idOrarioDidattico);
 
-            session.delete(tempSchedule);
+			session.delete(tempSchedule);
 
-            session.getTransaction().commit();
+			session.getTransaction().commit();
 
-        } finally {
-            factory.close();
-        }
-    }
+		} finally {
+			factory.close();
+		}
+	}
+
+//	/** delete all OrarioDidattico */
+//	public void DeleteAllSchedule() {
+//
+//		SessionFactory factory = startSession();
+//
+//		Session session = factory.getCurrentSession();
+//		int idOrarioDidattico = 9;
+//
+//		try {
+//			while (tempSchedule != null) {
+//				session.beginTransaction();
+//				OrarioDidattico tempSchedule = session.get(OrarioDidattico.class, idOrarioDidattico);
+//				session.getTransaction().commit();
+//
+//				DeleteSchedule(idOrarioDidattico);
+//			}
+//
+//		} finally {
+//			factory.close();
+//		}
+//
+//	}
 
 }

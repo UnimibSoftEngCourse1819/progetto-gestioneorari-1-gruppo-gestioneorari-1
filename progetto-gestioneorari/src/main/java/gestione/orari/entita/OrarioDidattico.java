@@ -2,27 +2,40 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "OrarioDidattico")
 public class OrarioDidattico {
-
+	
+	@Id
+    @Column
     private int idOrarioDidattico;
+	
+	@Column
     private LocalDateTime giornoOraInizio;
-    private LocalDateTime giornoOraFine;
-    private int idLezione;
+	
+	@Column
+	private LocalDateTime giornoOraFine;
+    
+	@Column
+	private int idLezione;
+	
+	public OrarioDidattico () {};	
+	
+    public OrarioDidattico(int idOrarioDidattico, LocalDateTime giornoOraInizio, LocalDateTime giornoOraFine,
+			int idLezione) {
+		super();
+		this.idOrarioDidattico = idOrarioDidattico;
+		this.giornoOraInizio = giornoOraInizio;
+		this.giornoOraFine = giornoOraFine;
+		this.idLezione = idLezione;
+	}
 
-    public OrarioDidattico(int idOrarioDidattico, LocalDateTime giornoOraInizio,
-            LocalDateTime giornoOraFine, int idLezione) {
-        setIdOrarioDidattico(idOrarioDidattico);
-        setGiornoOraInizio(giornoOraInizio);
-        setGiornoOraFine(giornoOraFine);
-        setIdLezione(idLezione);
-    }
-
-    public int getIdOrarioDidattico() {
+	public int getIdOrarioDidattico() {
         return idOrarioDidattico;
     }
 
