@@ -36,11 +36,6 @@ public class IscrizioneEsameController {
 		e.printStackTrace();
        // session.getTransaction().rollback();
 	}
-		
-		//catch (Exception e) {
-//			System.out.println(e.getMessage());
-	//	}
-
 		SessionFactory factory = startSession();
 		Session session = factory.getCurrentSession();
 
@@ -132,7 +127,7 @@ public class IscrizioneEsameController {
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-	        session.getTransaction().rollback();
+	     //   session.getTransaction().rollback();
 		} finally {
 			factory.close();
 		}
@@ -155,7 +150,7 @@ public class IscrizioneEsameController {
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-	        session.getTransaction().rollback();
+	      //  session.getTransaction().rollback();
 		} finally {
 			factory.close();
 		}
