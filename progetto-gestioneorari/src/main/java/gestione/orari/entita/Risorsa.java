@@ -1,5 +1,6 @@
 package gestione.orari.entita;
 
+<<<<<<< HEAD
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -94,4 +95,38 @@ public class Risorsa {
    	}
 
 
+=======
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Risorsa")
+public class Risorsa {
+    
+    @Id
+    @Column
+    private int idRisorsa;
+    
+    
+    @Column
+    private int idTipologiaRisorsa;
+    
+    @Column
+    private String nome;
+    
+    @Column
+    private String descrizione;
+    
+    
+    @Column
+    private String commento;
+    
+    
+    
+    
+>>>>>>> refs/remotes/origin/sviluppo
 }
