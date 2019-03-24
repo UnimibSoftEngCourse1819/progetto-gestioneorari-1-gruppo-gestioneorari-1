@@ -2,21 +2,41 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table( name = "Esame" )
 public class Esame {
-
+	@Id
+	@Column
 	private int idEsame;
+	@Column
 	private String nomeEsame;
+	@Column
 	private LocalDateTime dataOraInizio;
+	@Column
 	private LocalDateTime dataOraFine;
+	@Column
 	private int numeroIscritti; 
+	@Column
 	private int idCorso;
+	@Column
 	private int idProfessore;
 	
+	public Esame() {}
+	public Esame (int idEsame, String nomeEsame, LocalDateTime dataOraInizio, int idCorso, int idProfessore) {
+		setIdEsame(idEsame);
+		setNomeEsame(nomeEsame);
+		setDataOraInizio(dataOraInizio);
+		setDataOraFine(dataOraFine);
+		setIdCorso(idCorso);
+		setIdProfessore(idProfessore);
+	}
 	public Esame (int idEsame, String nomeEsame, LocalDateTime dataOraInizio, int numeroIscritti, int idCorso, int idProfessore) {
 		setIdEsame(idEsame);
 		setNomeEsame(nomeEsame);

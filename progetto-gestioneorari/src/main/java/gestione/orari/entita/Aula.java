@@ -1,17 +1,24 @@
 package gestione.orari.entita;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table( name = "Aula" )
 public class Aula {
-
+	@Id
+	@Column
 	private int idAula;
+	@Column
 	private String nomeAula;
+	@Column
 	private String edificio;
+	@Column
 	private int capienza;
 	
+	public Aula(){}
 	public Aula(int idAula, String nomeAula, String edificio, int capienza){
 		setIdAula(idAula);
 		setNomeAula(nomeAula);

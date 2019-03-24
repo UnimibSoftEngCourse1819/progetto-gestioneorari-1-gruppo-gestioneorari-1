@@ -17,7 +17,7 @@ public class CalendarioDidattico {
     private int idCalendarioDidattico;
     
     @Column(name = "nomeAnno")
-    private String nomeAnno;
+    private String nomeAnno; //es. 2018-2019 
     
     @Column(name = "inizioPeriodo")
     private LocalDateTime inizioPeriodo;

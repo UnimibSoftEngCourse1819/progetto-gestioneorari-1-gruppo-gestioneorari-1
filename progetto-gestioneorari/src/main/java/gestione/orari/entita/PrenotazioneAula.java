@@ -2,18 +2,32 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table( name = "PrenotazioneAula" )
 public class PrenotazioneAula {
- 
-	private int idPrenotazioneAula, idAula,idProfessore;
-	private LocalDateTime giornoOraInizio, giornoOraFine;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@Column
+	private int idPrenotazioneAula;
+	@Column
+	private int idAula;
+	@Column
+	private int idProfessore;
+	@Column
+	private LocalDateTime giornoOraInizio;
+	@Column
+	private LocalDateTime giornoOraFine;
 	
-	public PrenotazioneAula(int idPrenotazioneAula, int idAula, int idProfessore, LocalDateTime giornoOraInizio,
-			LocalDateTime giornoOraFine) {
+	public PrenotazioneAula() {}
+	public PrenotazioneAula(int idPrenotazioneAula, LocalDateTime giornoOraInizio,
+			LocalDateTime giornoOraFine, int idAula, int idProfessore) {
 		super();
 		this.idPrenotazioneAula = idPrenotazioneAula;
 		this.idAula = idAula;
@@ -61,9 +75,5 @@ public class PrenotazioneAula {
 	public void setGiornoOraFine(LocalDateTime giornoOraFine) {
 		this.giornoOraFine = giornoOraFine;
 	}
-
-
-	
-	
 	
 }

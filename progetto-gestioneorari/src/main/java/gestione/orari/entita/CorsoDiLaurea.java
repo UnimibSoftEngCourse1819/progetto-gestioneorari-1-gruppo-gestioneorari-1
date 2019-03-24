@@ -12,21 +12,18 @@ public class CorsoDiLaurea {
     @Id
     @Column
     private int idCorsoDiLaurea;
-    
-    @Column
-    private int durata;
-    
     @Column
     private String nome;
-    
     @Column
     private String descrizione;
-    
+    @Column
+    private int durata; 
     @Column
     private String tipologia;
     
-    public CorsoDiLaurea(int idCorsoDiLaurea, int durata, String nome,
-            String descrizione, String tipologia) {
+    public CorsoDiLaurea() {}
+    
+    public CorsoDiLaurea(int idCorsoDiLaurea, String nome, String descrizione, int durata, String tipologia) {
         this.idCorsoDiLaurea = idCorsoDiLaurea;
         this.durata = durata;
         this.nome = nome;
@@ -63,5 +60,15 @@ public class CorsoDiLaurea {
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
     }
+    @Override
+   	public String toString() {
+   		StringBuilder sb = new StringBuilder();
+   		sb.append("idCorsoDiLaurea: ").append(idCorsoDiLaurea);
+   		sb.append("nome: ").append(nome);
+   		sb.append("descrizione: ").append(descrizione);
+   		sb.append("durata: ").append(durata);	
+   		sb.append("tipologia: ").append(tipologia);
+   		return sb.toString();
+   	}
     
 }

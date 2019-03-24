@@ -1,5 +1,6 @@
 package gestione.orari.entita;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +14,12 @@ public class AulaLezione {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAulaLezione;
+	@Column
 	private int idAula;
+	@Column
 	private int idLezione;
 	
-	
+	public AulaLezione() {}
 	public AulaLezione(int idAulaLezione, int idAula, int idLezione) {
 		setIdAulaLezione(idAulaLezione);
 		setIdAula(idAula);

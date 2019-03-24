@@ -12,9 +12,8 @@ import javax.persistence.Table;
 public class Corso {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private int idCorso;
+    private String idCorso;
     
     @Column
     private int idCorsoDiLaurea;
@@ -28,18 +27,18 @@ public class Corso {
     @Column
     private String descrizione;
     
-    public Corso(int idCorso, int idCorsoDiLaurea, int annoDiCorso, String nome,
-            String descrizione) {
+    public Corso() {}
+    public Corso(String idCorso, String nome, String descrizione, int idCorsoDiLaurea, int annoDiCorso) {
         this.idCorso = idCorso;
         this.idCorsoDiLaurea = idCorsoDiLaurea;
         this.annoDiCorso = annoDiCorso;
         this.nome = nome;
         this.descrizione = descrizione;
     }
-    public int getIdCorso() {
+    public String getIdCorso() {
         return idCorso;
     }
-    public void setIdCorso(int idCorso) {
+    public void setIdCorso(String idCorso) {
         this.idCorso = idCorso;
     }
     public int getIdCorsoDiLaurea() {
@@ -66,5 +65,15 @@ public class Corso {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+    @Override
+   	public String toString() {
+   		StringBuilder sb = new StringBuilder();
+   		sb.append("idCorso: ").append(idCorso);
+   		sb.append("nome: ").append(nome);
+   		sb.append("descrizione: ").append(descrizione);
+   		sb.append("idCorsoDiLaurea: ").append(idCorsoDiLaurea);	
+   		sb.append("annoDiCorso: ").append(annoDiCorso);
+   		return sb.toString();
+   	}
     
 }

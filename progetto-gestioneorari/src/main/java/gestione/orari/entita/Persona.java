@@ -1,15 +1,39 @@
 package gestione.orari.entita;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table( name = "Persona" )
-public class Persona 
-{
-	private int idPersona,idGruppo;
-	private String nome, cognome,email;
+public class Persona {
+	@Id
+	@Column
+	private int idPersona;
+	@Column
+	private String nome;
+	@Column
+	private String cognome; 
+	@Column
+	private String email;
+	@Column
 	private long telefono;
+	@Column
+	private int idGruppo;
+	
+	public Persona() {}
+	
+	public Persona(int idPersona, String nome, String cognome, String email, long telefono, int idGruppo) {
+		super();
+		this.idPersona = idPersona;
+		this.idGruppo = idGruppo;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.telefono = telefono;
+	}
+	
 	
 	public int getIdPersona() {
 		return idPersona;
@@ -58,15 +82,16 @@ public class Persona
 	public void setTelefono(long telefono) {
 		this.telefono = telefono;
 	}
-
-	public Persona(int idPersona, int idGruppo, String nome, String cognome, String email, long telefono) {
-		super();
-		this.idPersona = idPersona;
-		this.idGruppo = idGruppo;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.email = email;
-		this.telefono = telefono;
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("idPersona: ").append(idPersona);
+		sb.append("idGruppo: ").append(idGruppo);
+		sb.append("nome: ").append(nome);	
+		sb.append("cognome: ").append(cognome);	
+		sb.append("email: ").append(email);	
+		sb.append("telefono: ").append(telefono);	
+		return sb.toString();
 	}
 	
 	

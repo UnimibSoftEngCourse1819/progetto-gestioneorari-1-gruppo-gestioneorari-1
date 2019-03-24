@@ -2,6 +2,7 @@ package gestione.orari.entita;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,12 +14,31 @@ import javax.persistence.Table;
 public class IscrizioneEsame {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private int idIscrizioneEsame;
-	private int idEsame, idStudente, idProfessore;
+	@Column
+	private int idEsame;
+	@Column
+	private int idStudente;
+	@Column
+	private int idProfessore;
+	@Column
 	private String note;
+	@Column
 	private LocalDateTime giornoOra;
+	@Column
 	private LocalDateTime scadenzaLimiteIscrizione;
 	
+	public IscrizioneEsame() {}
+	
+	public IscrizioneEsame(int idIscrizioneEsame,int idEsame, int idProfessore, LocalDateTime giornoOra, LocalDateTime scadenzaLimiteIscrizione, int idStudente) {
+		setIdIscrizioneEsame(idIscrizioneEsame);
+		setIdEsame(idEsame);
+		setIdStudente(idStudente);
+		setIdProfessore(idProfessore);
+		setGiornoOra(giornoOra);
+		setScadenzaLimiteIscrizione(scadenzaLimiteIscrizione);
+	}
 	public IscrizioneEsame(int idIscrizioneEsame,int idEsame, int idProfessore, LocalDateTime giornoOra, LocalDateTime scadenzaLimiteIscrizione, String note, int idStudente) {
 		setIdIscrizioneEsame(idIscrizioneEsame);
 		setIdEsame(idEsame);

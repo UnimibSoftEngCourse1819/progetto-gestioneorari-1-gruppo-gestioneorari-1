@@ -1,6 +1,8 @@
 package gestione.orari.entita;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -8,29 +10,26 @@ import javax.persistence.Table;
 @Table( name = "Gruppo" )
 public class Gruppo {
 	
-	
-
-	private int idRuolo;
+	@Id
+	@Column
+	private int idGruppo;
+	@Column
 	private String descrizione;
 	
+	public Gruppo() {}
 	
-	public Gruppo(int idRuolo, String descrizione) {
-		super();
-		this.idRuolo = idRuolo;
-		this.descrizione = descrizione;
+	public Gruppo(int idGruppo, String descrizione) {
+		
+		setIdGruppo(idGruppo);
+		setDescrizione(descrizione);
 	}
 
-
-	public int getIdRuolo() {
-		return idRuolo;
+	public int getIdGruppo() {
+		return idGruppo;
 	}
-
-
-	public void setIdRuolo(int idRuolo) {
-		this.idRuolo = idRuolo;
+	public void setIdGruppo(int idGruppo) {
+		this.idGruppo = idGruppo;
 	}
-
-
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -40,7 +39,13 @@ public class Gruppo {
 		this.descrizione = descrizione;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("idGruppo: ").append(idGruppo);
+		sb.append("descrizione: ").append(descrizione);
+		return sb.toString();
+	}
 	
 
 }
