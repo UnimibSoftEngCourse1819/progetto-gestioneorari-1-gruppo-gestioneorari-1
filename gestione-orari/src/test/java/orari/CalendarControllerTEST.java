@@ -29,11 +29,12 @@ public class CalendarControllerTEST {
 			else
 				System.out.println("Lista piena");
 			
-			c1.updateCalendarYear(2, "dodicesimo");
+			c1.updateCalendarYear(4, "pappalardo");
 	
-			giornoOraFine = LocalDateTime.of(2030, 12, 10, 01, 00, 00);
-			giornoOraInizio = LocalDateTime.of(2030, 10, 8, 02, 00, 00);
-			c1.updateCalendar(2, giornoOraInizio, giornoOraFine);
+			giornoOraInizio = LocalDateTime.of(2222, 10, 3, 02, 00, 00);
+			giornoOraFine = LocalDateTime.of(2223, 12, 11, 01, 00, 00);
+			c1.updateCalendar(6, giornoOraInizio, giornoOraFine);
+			c1.updateCalendar(5, "gnegne", giornoOraInizio, giornoOraFine);
 
 		} finally {
 			

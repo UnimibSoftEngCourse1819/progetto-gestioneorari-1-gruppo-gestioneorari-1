@@ -11,155 +11,182 @@ import model.Calendar;
 
 public class CalendarController {
 
-	private SessionFactory startSession() {
+    private SessionFactory startSession() {
 
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Calendar.class)
-				.buildSessionFactory();
-		return factory;
+	SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Calendar.class)
+		.buildSessionFactory();
+	return factory;
 
+    }
+
+    /**
+     * creates and insert a new Calendar in the DB, checks that LocalDateTime is
+     * appropriate, launch LocalDateTimeException otherwise
+     */
+    public void createCalendar(int CalendarID, String year, LocalDateTime begin, LocalDateTime end) {
+
+	try {
+
+	    if ((LocalDateTime.now().isAfter(begin)) || (begin.isAfter(end)))
+		throw new LocalDateTimeException(
+			"Inizio periodo antecedente alla data attuale o successivo alla data di fine");
+
+	    SessionFactory factory = startSession();
+
+	    Session session = factory.getCurrentSession();
+
+	    try {
+		Calendar tempCalendar = new Calendar(CalendarID, year, begin, end);
+
+		session.beginTransaction();
+
+		session.save(tempCalendar);
+
+		session.getTransaction().commit();
+
+	    } finally {
+		factory.close();
+	    }
+	} catch (LocalDateTimeException e) {
+	    System.out.println(e.getMessage());
 	}
+    }
 
-	/**
-	 * creates and insert a new Calendar in the DB, checks that LocalDateTime is
-	 * appropriate, launch LocalDateTimeException otherwise
-	 */
-	public void createCalendar(int CalendarID, String year, LocalDateTime begin, LocalDateTime end) {
+    /** get Calendar by ID */
+    public Calendar getCalendarByID(int CalendarID) {
 
-		try {
+	SessionFactory factory = startSession();
 
-			if ((LocalDateTime.now().isAfter(begin)) || (begin.isAfter(end)))
-				throw new LocalDateTimeException(
-						"Inizio periodo antecedente alla data attuale o successivo alla data di fine");
+	Session session = factory.getCurrentSession();
 
-		} catch (LocalDateTimeException e) {
-			System.out.println(e.getMessage());
-		}
+	try {
+	    session.beginTransaction();
 
-		SessionFactory factory = startSession();
+	    Calendar tempCalendar = session.get(Calendar.class, CalendarID);
 
-		Session session = factory.getCurrentSession();
+	    session.getTransaction().commit();
 
-		try {
-			Calendar tempCalendar = new Calendar(CalendarID, year, begin, end);
+	    return tempCalendar;
 
-			session.beginTransaction();
-
-			session.save(tempCalendar);
-
-			session.getTransaction().commit();
-
-		} finally {
-			factory.close();
-		}
+	} finally {
+	    factory.close();
 	}
+    }
 
-	/** get Calendar by ID */
-	public Calendar getCalendarByID(int CalendarID) {
+    /** get all occurrences of the table CalendarioDisattico */
+    public List getAllCalendar() {
 
-		SessionFactory factory = startSession();
+	SessionFactory factory = startSession();
 
-		Session session = factory.getCurrentSession();
+	Session session = factory.getCurrentSession();
 
-		try {
-			session.beginTransaction();
+	List<Calendar> list;
+	try {
+	    session.beginTransaction();
 
-			Calendar tempCalendar = session.get(Calendar.class, CalendarID);
-
-			session.getTransaction().commit();
-
-			return tempCalendar;
-
-		} finally {
-			factory.close();
-		}
+	    list = session.createQuery("from Calendar").getResultList();
+	} finally {
+	    factory.close();
 	}
+	return list;
+    }
 
-	/** get all occurrences of the table CalendarioDisattico */
-	public List getAllCalendar() {
+    /** update year */
+    public void updateCalendarYear(int CalendarID, String year) {
 
-		SessionFactory factory = startSession();
+	SessionFactory factory = startSession();
 
-		Session session = factory.getCurrentSession();
+	Session session = factory.getCurrentSession();
+	try {
+	    session.beginTransaction();
 
-		List<Calendar> list;
-		try {
-			session.beginTransaction();
+	    Calendar tempCalendar = session.get(Calendar.class, CalendarID);
 
-			list = session.createQuery("from Calendar").getResultList();
-		} finally {
-			factory.close();
-		}
-		return list;
+	    tempCalendar.setYear(year);
+
+	    session.getTransaction().commit();
+
+	} finally {
+	    factory.close();
 	}
+    }
 
-	/** update year */
-	public void updateCalendarYear(int CalendarID, String year) {
+    /**
+     * update giornoOraInizio && giornoOraFine, check that LocalDateTime is
+     * appropriate, launch LocalDateTimeException otherwise
+     */
+    public void updateCalendar(int CalendarID, LocalDateTime begin, LocalDateTime end) {
 
-		SessionFactory factory = startSession();
+	SessionFactory factory = startSession();
 
-		Session session = factory.getCurrentSession();
-		try {
-			session.beginTransaction();
+	Session session = factory.getCurrentSession();
+	try {
+	    session.beginTransaction();
 
-			Calendar tempCalendar = session.get(Calendar.class, CalendarID);
+	    Calendar tempCalendar = session.get(Calendar.class, CalendarID);
 
-			tempCalendar.setYear(year);
+	    if ((LocalDateTime.now().isAfter(begin)) || (LocalDateTime.now().isAfter(end)) || (begin.isAfter(end)))
+		throw new LocalDateTimeException("Controlla le DATE!");
 
-			session.getTransaction().commit();
+	    tempCalendar.setBegin(begin);
+	    tempCalendar.setEnd(end);
 
-		} finally {
-			factory.close();
-		}
+	    session.getTransaction().commit();
+
+	} catch (LocalDateTimeException e) {
+	    System.out.println(e.getMessage());
+
+	} finally {
+	    factory.close();
 	}
+    }
 
-	/**
-	 * update giornoOraInizio && giornoOraFine, check that LocalDateTime is
-	 * appropriate, launch LocalDateTimeException otherwise
-	 */
-	public void updateCalendar(int CalendarID, LocalDateTime begin, LocalDateTime end) {
+    public void updateCalendar(int CalendarID, String year, LocalDateTime begin, LocalDateTime end) {
 
-		SessionFactory factory = startSession();
+	SessionFactory factory = startSession();
 
-		Session session = factory.getCurrentSession();
-		try {
-			session.beginTransaction();
+	Session session = factory.getCurrentSession();
 
-			Calendar tempCalendar = session.get(Calendar.class, CalendarID);
+	try {
+	    session.beginTransaction();
 
-			if ((LocalDateTime.now().isAfter(begin)) || (LocalDateTime.now().isAfter(end)) || (begin.isAfter(end)))
-				throw new LocalDateTimeException("Controlla le DATE!");
+	    Calendar tempCalendar = session.get(Calendar.class, CalendarID);
 
-			tempCalendar.setBegin(begin);
-			tempCalendar.setEnd(end);
+	    if ((LocalDateTime.now().isAfter(begin)) || (LocalDateTime.now().isAfter(end)) || (begin.isAfter(end)))
+		throw new LocalDateTimeException("Controlla le DATE!");
 
-			session.getTransaction().commit();
+	    tempCalendar.setYear(year);
+	    tempCalendar.setBegin(begin);
+	    tempCalendar.setEnd(end);
 
-		} catch (LocalDateTimeException e) {
-			System.out.println(e.getMessage());
+	    session.getTransaction().commit();
 
-		} finally {
-			factory.close();
-		}
+	} catch (LocalDateTimeException e) {
+	    System.out.println(e.getMessage());
+
+	} finally {
+	    factory.close();
 	}
+    }
 
-	/** delete an Calendar with a specific ID */
-	public void DeleteCalendar(int CalendarID) {
+    /** delete an Calendar with a specific ID */
+    public void DeleteCalendar(int CalendarID) {
 
-		SessionFactory factory = startSession();
+	SessionFactory factory = startSession();
 
-		Session session = factory.getCurrentSession();
-		try {
-			session.beginTransaction();
+	Session session = factory.getCurrentSession();
+	try {
+	    session.beginTransaction();
 
-			Calendar tempCalendar = session.get(Calendar.class, CalendarID);
+	    Calendar tempCalendar = session.get(Calendar.class, CalendarID);
 
-			session.delete(tempCalendar);
+	    session.delete(tempCalendar);
 
-			session.getTransaction().commit();
+	    session.getTransaction().commit();
 
-		} finally {
-			factory.close();
-		}
+	} finally {
+	    factory.close();
 	}
+    }
 
 }
